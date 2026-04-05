@@ -90,18 +90,6 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-        }
-    }
-
-    fun refreshProxiesAction() {
-        viewModelScope.launch {
-            _uiState.update { it.copy(isRefreshing = true, error = null) }
-            val result = refreshProxies()
-            if (result.isFailure) {
-                _uiState.update { it.copy(error = result.exceptionOrNull()?.message, isRefreshing = false) }
-            }
-        }
-    }
 
     fun updateFilters(filters: FilterState) {
         _uiState.update { it.copy(filters = filters) }
