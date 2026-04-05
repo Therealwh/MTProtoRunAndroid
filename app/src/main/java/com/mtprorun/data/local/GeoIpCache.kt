@@ -36,9 +36,8 @@ class GeoIpCache @Inject constructor(@ApplicationContext private val context: Co
     fun getAll(): Flow<Map<String, String>> = context.geoIpCacheStore.data.map { prefs ->
         prefs.asMap()
             .filterKeys { it.name.startsWith("country_") && !it.name.startsWith("country_ts_") }
-            .associate { (key, value) ->
-                key.name.removePrefix("country_") to value.toString()
-            }
+            .mapKeys { it.key.name.removePrefix("country_") }
+            .mapValues { it.value.toString() }
     }
 
     suspend fun clear() {

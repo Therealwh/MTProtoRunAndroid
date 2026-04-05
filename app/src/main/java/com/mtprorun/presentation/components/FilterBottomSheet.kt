@@ -1,5 +1,6 @@
 package com.mtprorun.presentation.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -49,6 +50,7 @@ fun FilterBottomSheet(
         ) {
             items(countries) { country ->
                 val isSelected = selectedCountries.contains(country)
+                val flag = country.toFlagEmoji()
                 SuggestionChip(
                     onClick = {
                         selectedCountries = if (isSelected) {
@@ -57,13 +59,14 @@ fun FilterBottomSheet(
                             selectedCountries + country
                         }
                     },
-                    label = { Text("${country.toFlagEmoji()} $country") },
+                    label = { Text("$flag $country") },
                     colors = SuggestionChipDefaults.suggestionChipColors(
                         containerColor = if (isSelected) PrimaryColor else ChipBackground,
                         labelColor = if (isSelected) TextPrimary else TextSecondary
                     ),
-                    border = SuggestionChipDefaults.suggestionChipBorder(
-                        borderColor = if (isSelected) PrimaryColor else ChipBorder
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = if (isSelected) PrimaryColor else ChipBorder
                     )
                 )
             }
@@ -155,8 +158,8 @@ fun FilterBottomSheet(
 
 val SortOption.displayName: String
     get() = when (this) {
-        SortOption.PING_ASC -> "Ping: Low → High"
-        SortOption.PING_DESC -> "Ping: High → Low"
+        SortOption.PING_ASC -> "Ping: Low to High"
+        SortOption.PING_DESC -> "Ping: High to Low"
         SortOption.COUNTRY -> "Country"
         SortOption.ADDED -> "Recently Added"
     }

@@ -132,7 +132,7 @@ class ProxyRepositoryImpl @Inject constructor(
                 compareByDescending<ProxyUi> { it.pingMs ?: 0 }.thenBy { it.host }
             )
             SortOption.COUNTRY -> result.sortedWith(
-                compareBy { it.countryCode }.thenBy { it.host }
+                compareBy<ProxyUi> { it.countryCode }.thenBy { it.host }
             )
             SortOption.ADDED -> result
         }
