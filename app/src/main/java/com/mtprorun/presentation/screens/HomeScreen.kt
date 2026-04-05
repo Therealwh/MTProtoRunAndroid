@@ -20,8 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mtprorun.R
 import com.mtprorun.domain.model.FilterState
 import com.mtprorun.presentation.components.*
 import com.mtprorun.presentation.theme.*
@@ -47,16 +49,16 @@ fun HomeScreen(
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             TopAppBar(
-                title = { Text("MTProtoRun", color = TextPrimary) },
+                title = { Text(stringResource(R.string.app_name), color = TextPrimary) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent
                 ),
                 actions = {
                     IconButton(onClick = { viewModel.refreshProxiesAction() }) {
-                        Icon(Icons.Default.Refresh, contentDescription = "Refresh", tint = TextPrimary)
+                        Icon(Icons.Default.Refresh, contentDescription = stringResource(R.string.refresh), tint = TextPrimary)
                     }
                     IconButton(onClick = { viewModel.showFilters() }) {
-                        Icon(Icons.Default.FilterList, contentDescription = "Filters", tint = TextPrimary)
+                        Icon(Icons.Default.FilterList, contentDescription = stringResource(R.string.filters), tint = TextPrimary)
                     }
                 }
             )
@@ -67,7 +69,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
-                placeholder = { Text("Search proxies...", color = TextSecondary) },
+                placeholder = { Text(stringResource(R.string.search_proxies), color = TextSecondary) },
                 leadingIcon = {
                     Icon(Icons.Default.Search, contentDescription = null, tint = TextSecondary)
                 },
@@ -89,7 +91,7 @@ fun HomeScreen(
                     onRetry = { viewModel.loadProxies() }
                 )
             } else if (uiState.filteredProxies.isEmpty() && uiState.proxies.isNotEmpty()) {
-                EmptyState("No proxies match your filters")
+                EmptyState(stringResource(R.string.no_proxies_match))
             } else {
                 LazyColumn(
                     state = scrollState,
@@ -116,7 +118,7 @@ fun HomeScreen(
                                 } catch (e: Exception) {
                                     android.widget.Toast.makeText(
                                         context,
-                                        "Telegram not installed",
+                                        context.getString(R.string.telegram_not_installed),
                                         android.widget.Toast.LENGTH_SHORT
                                     ).show()
                                 }
@@ -124,7 +126,7 @@ fun HomeScreen(
                             onCopy = {
                                 android.widget.Toast.makeText(
                                     context,
-                                    "Copied!",
+                                    context.getString(R.string.copied),
                                     android.widget.Toast.LENGTH_SHORT
                                 ).show()
                             },

@@ -7,10 +7,12 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.mtprorun.R
 import com.mtprorun.presentation.screens.HomeScreen
 import com.mtprorun.presentation.screens.SettingsScreen
 
@@ -24,14 +26,14 @@ fun AppNavHost() {
         bottomBar = {
             NavigationBar(containerColor = com.mtprorun.presentation.theme.CardGradientStart) {
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-                    label = { Text("Home") },
+                    icon = { Icon(Icons.Default.Home, contentDescription = stringResource(R.string.home)) },
+                    label = { Text(stringResource(R.string.home)) },
                     selected = currentRoute == Screens.Home.route,
                     onClick = { navController.navigate(Screens.Home.route) { launchSingleTop = true } }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
-                    label = { Text("Settings") },
+                    icon = { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings)) },
+                    label = { Text(stringResource(R.string.settings)) },
                     selected = currentRoute == Screens.Settings.route,
                     onClick = { navController.navigate(Screens.Settings.route) { launchSingleTop = true } }
                 )

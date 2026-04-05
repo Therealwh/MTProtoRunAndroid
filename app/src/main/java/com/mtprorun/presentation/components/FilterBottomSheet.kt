@@ -11,7 +11,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.mtprorun.R
 import com.mtprorun.domain.model.FilterState
 import com.mtprorun.domain.model.SortOption
 import com.mtprorun.presentation.theme.ChipBackground
@@ -39,10 +41,10 @@ fun FilterBottomSheet(
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
-        Text("Filters", style = MaterialTheme.typography.titleLarge, color = TextPrimary)
+        Text(stringResource(R.string.filters), style = MaterialTheme.typography.titleLarge, color = TextPrimary)
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Countries", style = MaterialTheme.typography.labelLarge, color = TextPrimary)
+        Text(stringResource(R.string.countries), style = MaterialTheme.typography.labelLarge, color = TextPrimary)
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -74,7 +76,7 @@ fun FilterBottomSheet(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Max Ping: ${maxPing}ms", style = MaterialTheme.typography.labelLarge, color = TextPrimary)
+        Text("${stringResource(R.string.max_ping)}: ${maxPing}ms", style = MaterialTheme.typography.labelLarge, color = TextPrimary)
         Slider(
             value = maxPing.toFloat(),
             onValueChange = { maxPing = it.toInt() },
@@ -89,7 +91,7 @@ fun FilterBottomSheet(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Only Online", color = TextPrimary)
+            Text(stringResource(R.string.only_online), color = TextPrimary)
             Switch(
                 checked = onlyOnline,
                 onCheckedChange = { onlyOnline = it }
@@ -98,7 +100,7 @@ fun FilterBottomSheet(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text("Sort By", style = MaterialTheme.typography.labelLarge, color = TextPrimary)
+        Text(stringResource(R.string.sort_by), style = MaterialTheme.typography.labelLarge, color = TextPrimary)
         Spacer(modifier = Modifier.height(8.dp))
 
         SortOption.entries.forEach { option ->
@@ -133,7 +135,7 @@ fun FilterBottomSheet(
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("Reset")
+                Text(stringResource(R.string.reset))
             }
 
             Button(
@@ -150,7 +152,7 @@ fun FilterBottomSheet(
                 },
                 modifier = Modifier.weight(1f)
             ) {
-                Text("Apply")
+                Text(stringResource(R.string.apply))
             }
         }
     }

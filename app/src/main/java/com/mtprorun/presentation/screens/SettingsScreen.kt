@@ -16,8 +16,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mtprorun.R
 import com.mtprorun.presentation.components.GlassSurface
 import com.mtprorun.presentation.theme.*
 import com.mtprorun.presentation.viewmodel.SettingsViewModel
@@ -45,21 +47,21 @@ fun SettingsScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp)
         ) {
-            Text("Settings", style = MaterialTheme.typography.titleLarge, color = TextPrimary)
+            Text(stringResource(R.string.settings), style = MaterialTheme.typography.titleLarge, color = TextPrimary)
             Spacer(modifier = Modifier.height(16.dp))
 
             GlassSurface(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("General", style = MaterialTheme.typography.labelLarge, color = PrimaryColor)
+                    Text(stringResource(R.string.general), style = MaterialTheme.typography.labelLarge, color = PrimaryColor)
                     Spacer(modifier = Modifier.height(12.dp))
 
                     SettingsRow(
-                        title = "Auto-update interval",
+                        title = stringResource(R.string.auto_update_interval),
                         value = when (uiState.autoUpdateInterval) {
-                            5 -> "5 min"
-                            15 -> "15 min"
-                            30 -> "30 min"
-                            else -> "Disabled"
+                            5 -> "5 ${stringResource(R.string.min)}"
+                            15 -> "15 ${stringResource(R.string.min)}"
+                            30 -> "30 ${stringResource(R.string.min)}"
+                            else -> stringResource(R.string.disabled)
                         },
                         onClick = {
                             val intervals = listOf(0, 5, 15, 30)
@@ -72,7 +74,7 @@ fun SettingsScreen(
                     Divider(color = SurfaceBorder, thickness = 1.dp)
 
                     SettingsRow(
-                        title = "Ping threshold",
+                        title = stringResource(R.string.ping_threshold),
                         value = "${uiState.pingThreshold} ms",
                         onClick = {
                             val thresholds = listOf(100, 200, 500, 1000)
@@ -92,7 +94,7 @@ fun SettingsScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("GeoIP lookup", color = TextPrimary)
+                        Text(stringResource(R.string.geoip_lookup), color = TextPrimary)
                         Switch(
                             checked = uiState.enableGeoIp,
                             onCheckedChange = { viewModel.setEnableGeoIp(it) }
@@ -105,7 +107,7 @@ fun SettingsScreen(
 
             GlassSurface(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Cache", style = MaterialTheme.typography.labelLarge, color = PrimaryColor)
+                    Text(stringResource(R.string.cache), style = MaterialTheme.typography.labelLarge, color = PrimaryColor)
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Button(
@@ -121,7 +123,7 @@ fun SettingsScreen(
                                 color = Color.White
                             )
                         } else {
-                            Text("Clear Cache")
+                            Text(stringResource(R.string.clear_cache))
                         }
                     }
 
@@ -130,7 +132,7 @@ fun SettingsScreen(
                             viewModel.resetCacheClearedFlag()
                         }
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text("Cache cleared!", color = SuccessColor, style = MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.cache_cleared), color = SuccessColor, style = MaterialTheme.typography.bodySmall)
                     }
                 }
             }
@@ -139,11 +141,11 @@ fun SettingsScreen(
 
             GlassSurface(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("About", style = MaterialTheme.typography.labelLarge, color = PrimaryColor)
+                    Text(stringResource(R.string.about), style = MaterialTheme.typography.labelLarge, color = PrimaryColor)
                     Spacer(modifier = Modifier.height(12.dp))
 
                     SettingsRow(
-                        title = "Version",
+                        title = stringResource(R.string.version),
                         value = "1.0.0",
                         onClick = {}
                     )
@@ -158,7 +160,7 @@ fun SettingsScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("GitHub", color = TextPrimary)
+                        Text(stringResource(R.string.github), color = TextPrimary)
                         Icon(Icons.Default.Info, contentDescription = null, tint = TextSecondary)
                     }
                 }

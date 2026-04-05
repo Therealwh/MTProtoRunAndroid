@@ -20,10 +20,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mtprorun.R
 import com.mtprorun.domain.model.ProxyUi
 import com.mtprorun.presentation.theme.*
 import com.mtprorun.ui.utils.toFlagEmoji
@@ -118,7 +120,7 @@ fun ProxyCard(
                         modifier = Modifier.size(16.dp)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("Copy", fontSize = 12.sp)
+                    Text(stringResource(R.string.copy), fontSize = 12.sp)
                 }
 
                 OutlinedButton(
@@ -136,7 +138,7 @@ fun ProxyCard(
                         modifier = Modifier.size(16.dp)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("Open", fontSize = 12.sp)
+                    Text(stringResource(R.string.open), fontSize = 12.sp)
                 }
 
                 IconButton(
@@ -197,11 +199,9 @@ fun OnlineBadge(isOnline: Boolean) {
                 .background(color)
         )
         Text(
-            text = if (isOnline) "Online" else "Offline",
+            text = if (isOnline) stringResource(R.string.online) else stringResource(R.string.offline),
             fontSize = 11.sp,
             color = color
         )
     }
 }
-
-

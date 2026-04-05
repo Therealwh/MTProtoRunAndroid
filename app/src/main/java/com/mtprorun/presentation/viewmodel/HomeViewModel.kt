@@ -53,6 +53,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         observeProxies()
+        loadProxies()
     }
 
     private fun observeProxies() {

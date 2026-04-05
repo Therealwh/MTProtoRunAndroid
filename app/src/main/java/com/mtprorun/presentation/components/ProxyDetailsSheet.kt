@@ -23,11 +23,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mtprorun.R
 import com.mtprorun.domain.model.ProxyUi
 import com.mtprorun.presentation.theme.*
 import com.mtprorun.ui.utils.toFlagEmoji
@@ -54,7 +56,7 @@ fun ProxyDetailsBottomSheet(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Proxy Details", style = MaterialTheme.typography.titleLarge, color = TextPrimary)
+            Text(stringResource(R.string.proxy_details), style = MaterialTheme.typography.titleLarge, color = TextPrimary)
             Text(
                 text = proxy.countryCode.toFlagEmoji(),
                 fontSize = 32.sp
@@ -65,22 +67,22 @@ fun ProxyDetailsBottomSheet(
 
         GlassSurface(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp)) {
-                DetailRow("Host", proxy.host)
-                DetailRow("Port", proxy.port.toString())
-                DetailRow("Country", "${proxy.countryCode.toFlagEmoji()} ${proxy.countryCode}")
-                DetailRow("Method", proxy.method ?: "N/A")
-                DetailRow("Ping", if (proxy.pingMs != null) "${proxy.pingMs} ms" else "Not checked")
-                DetailRow("Status", if (proxy.isOnline) "Online" else "Offline")
+                DetailRow(stringResource(R.string.host), proxy.host)
+                DetailRow(stringResource(R.string.port), proxy.port.toString())
+                DetailRow(stringResource(R.string.country), "${proxy.countryCode.toFlagEmoji()} ${proxy.countryCode}")
+                DetailRow(stringResource(R.string.method), proxy.method ?: "N/A")
+                DetailRow(stringResource(R.string.ping), if (proxy.pingMs != null) "${proxy.pingMs} ms" else stringResource(R.string.not_checked))
+                DetailRow(stringResource(R.string.status), if (proxy.isOnline) stringResource(R.string.online) else stringResource(R.string.offline))
                 if (proxy.lastChecked > 0) {
                     val format = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                    DetailRow("Last checked", format.format(Date(proxy.lastChecked)))
+                    DetailRow(stringResource(R.string.last_checked), format.format(Date(proxy.lastChecked)))
                 }
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Proxy Link", style = MaterialTheme.typography.labelLarge, color = TextPrimary)
+        Text(stringResource(R.string.proxy_link), style = MaterialTheme.typography.labelLarge, color = TextPrimary)
         Spacer(modifier = Modifier.height(8.dp))
 
         Box(
@@ -111,7 +113,7 @@ fun ProxyDetailsBottomSheet(
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(proxy.tgLink))
                         context.startActivity(intent)
                     } catch (e: Exception) {
-                        showToast = "Telegram not installed"
+                        showToast = context.getString(R.string.telegram_not_installed)
                     }
                 },
                 modifier = Modifier.weight(1f),
@@ -119,21 +121,21 @@ fun ProxyDetailsBottomSheet(
             ) {
                 Icon(Icons.Default.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("Open")
+                Text(stringResource(R.string.open))
             }
 
             Button(
                 onClick = {
                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     clipboard.setPrimaryClip(ClipData.newPlainText("Proxy Link", proxy.tgLink))
-                    showToast = "Copied!"
+                    showToast = context.getString(R.string.copied)
                 },
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor)
             ) {
                 Icon(Icons.Default.ContentCopy, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("Copy")
+                Text(stringResource(R.string.copy))
             }
 
             Button(
@@ -142,7 +144,7 @@ fun ProxyDetailsBottomSheet(
                         type = "text/plain"
                         putExtra(Intent.EXTRA_TEXT, proxy.tgLink)
                     }
-                    context.startActivity(Intent.createChooser(shareIntent, "Share proxy"))
+                    context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share)))
                 },
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(containerColor = AccentColor)

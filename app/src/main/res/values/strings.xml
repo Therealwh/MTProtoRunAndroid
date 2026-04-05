@@ -48,4 +48,6 @@
     <string name="recently_added">Recently Added</string>
     <string name="error_loading">Failed to load proxies. Check your connection.</string>
     <string name="no_internet">No internet connection</string>
+    <string name="min">min</string>
+    <string name="disabled">Disabled</string>
 </resources>
